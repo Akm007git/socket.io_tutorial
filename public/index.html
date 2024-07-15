@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Chat Room</h1>
+    <input type="text" id="messege" placeholder="Type messege" />
+    <button id="sendMessege">send</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const messegeinput = document.querySelector("#messege");
+      const btn = document.querySelector("#sendMessege");
+      // console.log(messege, btn);
+
+      // eply coming from the server
+      socket.on("server-messege", (data) => {
+        console.log("Receving data : " + data);
+      });
+
+      btn.addEventListener("click", (e) => {
+        const data = messegeinput.value;
+        console.log("sending data : " + data);
+        socket.emit("user-message", data);
+      });
+    </script>
+  </body>
+</html>

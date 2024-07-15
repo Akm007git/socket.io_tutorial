@@ -1,0 +1,23 @@
+// main concept
+make sure when you are sending the data from client to server usng socket.on--- the  "Key" name should be same on the server when server will receive the data, it will check the "Key"
+
+example:
+// index.html
+  btn.addEventListener("click", (e) => {
+        const data = messegeinput.value;
+        console.log("sending data : " + data);
+        socket.emit("user-message", data); // key  = user-messege
+      });
+
+      // index.js
+
+    
+    socket.on("user-message", (messege) => {   // key = user-messege
+        console.log("receving in server & sending back to all client: " + messege);  // Logging the message in console
+        io.emit("server-messege", messege);  // Emitting message to all connected clients
+
+    })
+
+
+    // also same case when we sending data from backend "io.emit()"
+    here the key and the when we fetch in frontend this key also shoulb be same;
